@@ -26,8 +26,8 @@ class wtpuiCommand extends VanillaCommand {
   if($sender->isOp() === true){
     $id = rand(1, 999);
     $ui = new \Zero\WorldTpUI\UI\SimpleUI($id);
-    $ui->addTitle(T::AQUA ."WorldTpUI ". T::YELLOW . $this->plugin->version);
-    $ui->addContent(T::AQUA ."What world do you want to tp to?");
+    $ui->addTitle("WorldTpUI ". $this->plugin->version);
+    $ui->addContent(T::YELLOW ."What world do you want to tp to?");
   foreach($this->plugin->worlds as $wid => $world){
     $ui->addButton("Teleport to: ". $world, -1);
   }

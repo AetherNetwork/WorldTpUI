@@ -11,19 +11,17 @@ class Main extends PluginBase {
 
   public $ui = [];
   public $worlds = [];
-
-  public $loadAllWorlds = true;
   
-  public $version = '0.0.1';
+  public $version = '0.0.2';
 
 
   public function onEnable() : void {
   try {
   if($this->isFirstLoad() === true){
-    $this->getLogger()->info(T::YELLOW ."\nHello and Welcone to WorldTpUI\n\nMake sure you stop the server\nand edit the config in 'plugins/WorldTpUI/config.yml'\n");
+    $this->getLogger()->info(T::YELLOW ."\nHello and Welcone to WorldTpUI\nEdit the config in 'plugins/WorldTpUI/config.yml'");
+    $this->getServer()->getPluginManager()->disablePlugin($this);
   } else {
     $this->getLogger()->info(T::YELLOW ."is Loading...");
-  }
     $this->saveResource("config.yml");
     $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
 
@@ -43,16 +41,17 @@ class Main extends PluginBase {
     $this->worlds[$id] = $level->getName();
     $id++;
    }
-  } else {
-    $this->getLogger()->info(T::RED ."\nPlease Delete config in 'plugins/WorldTpUI/config.yml'\nthe config needs to be updated");
-    $this->getServer()->getPluginManager()->disablePlugin($this);
-   }
-  } catch(Exception $e){
-    $this->getLogger()->info(T::RED ."Failed to load due to $e");
-  }
     $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
+  } else {
+    $this->getLogger()->info(T::RED ."\nPlease Delete config in 'plugins/WorldTpUI/config.yml'\nthe config needs to be updated");
+    $this->getServer()->getPluginManager()->disablePlugin($this);
+    }
+   }
+  } catch(Exception $e){
+    $this->getLogger()->info(T::RED ."Failed to load due to $e");
+   }
   }
 
   public function isFirstLoad(){
@@ -73,7 +72,9 @@ class Main extends PluginBase {
 
   public function onDisable() : void {
     $this->getLogger()->info(T::RED ."unloading plugin...");
+  if(isset($this->config)){
     $this->config->save();
+  }
 	  $this->getLogger()->info(T::RED ."has Unloaded, Goodbye!");
   }
 }
