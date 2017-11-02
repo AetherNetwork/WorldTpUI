@@ -10,6 +10,13 @@
 
 > Minecraft: v1.2.3
 
+# How to Use
+Drop the plugin in your plugins folder, start your server
+
+> commands: /wtpui
+
+![2017-11-02 2](https://user-images.githubusercontent.com/12077835/32329111-3e166716-bf99-11e7-91be-dc45bf8c8825.png)
+
 # License
 ```
 MIT License
