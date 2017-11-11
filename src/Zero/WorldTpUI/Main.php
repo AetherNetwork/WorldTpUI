@@ -12,7 +12,7 @@ class Main extends PluginBase {
   public $ui = [];
   public $worlds = [];
   
-  public $version = '0.0.2';
+  public $version = '0.0.3';
 
 
   public function onEnable() : void {
@@ -27,20 +27,10 @@ class Main extends PluginBase {
 
   if($this->config->get('version') === $this->version){
     $this->getLogger()->info(T::GREEN ."Plugin Config is update-to-date.");
-  if($this->loadAllWorlds() === true){
-    $worlds = $this->getServer()->getDataPath() . "worlds/";
-    $allWorlds = array_slice(scandir($worlds), 2);
-  foreach($allWorlds as $world){
-    $this->getServer()->loadLevel($world);
-   }
+  if($this->config->get("load_all_worlds") === true){
+    $this->loadAllWorlds();
   }
-    $levels = $this->getServer()->getLevels();
-    $id = 0;
-  foreach($levels as $level){
-    $this->getLogger()->info(T::YELLOW ."Level: ". T::AQUA . $level->getName() . T::YELLOW ." Has Been Added to UI List as ". $id);
-    $this->worlds[$id] = $level->getName();
-    $id++;
-   }
+    $this->addWorlds();
     $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
@@ -60,14 +50,26 @@ class Main extends PluginBase {
   } else {
     @mkdir($this->getDataFolder());
     $config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-    $config->setAll(array("version" => $this->version, "load_all_worlds" => false));//will add more later
+    $config->setAll(array("version" => $this->version, "load_all_worlds" => false));
     $config->save();
     return true;
    }
   }
 
+  public function addWorlds(){
+    $levels = $this->getServer()->getLevels();
+  foreach($levels as $level){
+    $this->getLogger()->info(T::YELLOW ."Level: ". T::AQUA . $level->getName() . T::YELLOW ." Has Been Added to UI List as ". $level->getId());
+    $this->worlds[$level->getId()] = $level->getName();
+   }
+  }
+
   public function loadAllWorlds(){
-    return $this->config->get("load_all_worlds");
+    $worlds = $this->getServer()->getDataPath() . "worlds/";
+    $allWorlds = array_slice(scandir($worlds), 2);
+  foreach($allWorlds as $world){
+    $this->getServer()->loadLevel($world);
+   }
   }
 
   public function onDisable() : void {

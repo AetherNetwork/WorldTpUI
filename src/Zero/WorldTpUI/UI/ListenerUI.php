@@ -27,17 +27,17 @@ class ListenerUI implements Listener {
   if($pk instanceof ModalFormResponsePacket){
     $id = $pk->formId;
     $buttonid = json_decode($pk->formData, true);
-    $ui = $this->getPlugin()->ui;
-  if($id === $ui[$player->getName()]){
-    $worlds = $this->getPlugin()->worlds;
-  if(isset($worlds[$buttonid])){
-    $world = $worlds[$buttonid];
-  if($player->getLevel()->getName() != $world){
+  if($buttonid != '' or $buttonid != 0){
+  if(isset($this->getPlugin()->worlds[$buttonid])){
+    $world = $this->getPlugin()->worlds[$buttonid];
   if($this->getPlugin()->getServer()->isLevelLoaded($world)){
+  if($player->getLevel()->getName() != $world){
     $player->teleport(\pocketmine\Server::getInstance()->getLevelByName($world)->getSafeSpawn());
-   }
   } else {
     $player->sendMessage(T::RED ."You are already in that world");
+   }
+  } else {
+    $player->sendMessage(T::RED .'It seems that level is not loaded');
   }
      }
     }

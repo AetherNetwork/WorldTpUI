@@ -28,18 +28,17 @@ class wtpuiCommand extends VanillaCommand {
     $ui = new \Zero\WorldTpUI\UI\SimpleUI($id);
     $ui->addTitle("WorldTpUI ". $this->plugin->version);
     $ui->addContent(T::YELLOW ."What world do you want to tp to?");
+    $ui->addButton('Cancel', 1, 'https://i.imgur.com/PcJEnVy.png');
   foreach($this->plugin->worlds as $wid => $world){
-    $ui->addButton("Teleport to: ". $world, -1);
+    $ui->addButton("Teleport to: ". $world, 1, 'https://i.imgur.com/apIyTc8.png');
   }
     $this->plugin->ui[$sender->getName()] = $id;
     unset($id);
-
     $ui->send($sender);
-
     return true;
   } else {
-    $sender->sendMessage(T::RED."You must be op to run this Command!");
-  }
+    $sender->sendMessage(T::RED."You must be Op to run this Command!");
+   }
   } else {
     $sender->sendMessage(T::RED."Command must be run in-game!");
     return false;     
