@@ -10,9 +10,9 @@ use pocketmine\utils\TextFormat as T;
 class Main extends PluginBase {
 
   public $ui = [];
+  public $id = [];
   
   public $version = '0.0.4';
-
 
   public function onEnable() : void {
   try {
@@ -23,9 +23,8 @@ class Main extends PluginBase {
     $this->getLogger()->info(T::YELLOW ."is Loading...");
     $this->saveResource("config.yml");
     $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-
   if($this->config->get('version') === $this->version){
-    $this->getLogger()->info(T::GREEN ."Plugin Config is update-to-date.");
+    $this->getLogger()->info(T::AQUA ."Plugin Config is update-to-date.");
   if($this->config->get("load_all_worlds") === true){
     $this->loadAllWorlds();
   }
@@ -55,17 +54,27 @@ class Main extends PluginBase {
    }
   }
 
-  public function createWorldUI(){
-    $id = rand(1, 999);
-    $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
-    $this->ui['world-tp'] = $ui;
-  }
-
   public function loadAllWorlds(){
     $worlds = $this->getServer()->getDataPath() . "worlds/";
     $allWorlds = array_slice(scandir($worlds), 2);
   foreach($allWorlds as $world){
     $this->getServer()->loadLevel($world);
+   }
+  }
+
+  public function createWorldUI(){
+    $id = $this->getRandId();
+    $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
+    $this->ui['world-tp'] = $ui;
+  }
+
+  public function getRandId(){
+    $rand = rand(1, 1000);
+  if(in_array($rand, $this->id)){
+    return self::getRandId();
+  } else {
+    $this->id[] = $rand;
+    return $rand;
    }
   }
 

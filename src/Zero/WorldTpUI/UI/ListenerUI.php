@@ -42,7 +42,7 @@ class ListenerUI implements Listener {
     $player->sendMessage(T::RED .'It seems that level is not loaded or does not exist');
   }
   } else {
-    $player->sendMessage(C::RED .'Please type a world in the input area.');
+    $player->sendMessage(T::RED .'Please type a world in the input area.');
      }
     }
    }
