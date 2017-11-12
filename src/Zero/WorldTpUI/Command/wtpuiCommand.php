@@ -24,16 +24,12 @@ class wtpuiCommand extends VanillaCommand {
   public function execute(CommandSender $sender, $alias, array $args){
   if($sender instanceof Player){
   if($sender->isOp() === true){
-    $id = rand(1, 999);
-    $ui = new \Zero\WorldTpUI\UI\SimpleUI($id);
-    $ui->addTitle("WorldTpUI ". $this->plugin->version);
-    $ui->addContent(T::YELLOW ."What world do you want to tp to?");
-    $ui->addButton('Cancel', 1, 'https://i.imgur.com/PcJEnVy.png');
-  foreach($this->plugin->worlds as $wid => $world){
-    $ui->addButton("Teleport to: ". $world, 1, 'https://i.imgur.com/apIyTc8.png');
-  }
-    $this->plugin->ui[$sender->getName()] = $id;
-    unset($id);
+    $ui = $this->plugin->ui['world-tp'];
+    $ui->data = ['type' => 'custom_form', 'title' => 'WorldTpUI '. $this->plugin->version, 
+    'content' => [
+      ['type' => 'input', 'text' => 'Type a world name', 'placeholder' => 'World Name', 'default' => null],
+      ["type" => "label", "text" => "Worlds Loaded:\n". T::AQUA . $this->getLevels()]
+    ]];
     $ui->send($sender);
     return true;
   } else {
@@ -43,5 +39,14 @@ class wtpuiCommand extends VanillaCommand {
     $sender->sendMessage(T::RED."Command must be run in-game!");
     return false;     
    }
+  }
+
+  public function getLevels(){
+    $levels = $this->plugin->getServer()->getLevels();
+  foreach($levels as $level){
+    $lvl[$level->getName()] = $level;
+  }
+    return implode(", ", array_keys($lvl));
+    unset($lvl);
   }
 }

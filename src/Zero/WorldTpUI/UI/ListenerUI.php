@@ -26,19 +26,23 @@ class ListenerUI implements Listener {
     $pk = $e->getPacket();
   if($pk instanceof ModalFormResponsePacket){
     $id = $pk->formId;
-    $buttonid = json_decode($pk->formData, true);
-  if($buttonid != '' or $buttonid != 0){
-  if(isset($this->getPlugin()->worlds[$buttonid])){
-    $world = $this->getPlugin()->worlds[$buttonid];
-  if($this->getPlugin()->getServer()->isLevelLoaded($world)){
-  if($player->getLevel()->getName() != $world){
-    $player->teleport(\pocketmine\Server::getInstance()->getLevelByName($world)->getSafeSpawn());
+    $data = json_decode($pk->formData, true);
+    //var_dump($data);//debuggging.
+    $form = $this->plugin->ui['world-tp'];
+  if($id === $form->getId()){
+  if($data[0] != '' or $data[0] != null){
+  if($this->getPlugin()->getServer()->isLevelLoaded($data[0])){
+  if($player->getLevel()->getName() != $data[0]){
+    $player->teleport(\pocketmine\Server::getInstance()->getLevelByName($data[0])->getSafeSpawn());
+    $player->sendMessage(T::AQUA .'You have teleported to '. $data[0]);
   } else {
-    $player->sendMessage(T::RED ."You are already in that world");
-   }
-  } else {
-    $player->sendMessage(T::RED .'It seems that level is not loaded');
+    $player->sendMessage(T::RED .'You are already in that world');
   }
+  } else {
+    $player->sendMessage(C::RED .'It seems that level is not loaded or does not exist');
+  }
+  } else {
+    $player->sendMessage(C::RED .'Please type a world in the input area.');
      }
     }
    }

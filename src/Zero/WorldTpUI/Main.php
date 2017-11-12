@@ -10,9 +10,8 @@ use pocketmine\utils\TextFormat as T;
 class Main extends PluginBase {
 
   public $ui = [];
-  public $worlds = [];
   
-  public $version = '0.0.3';
+  public $version = '0.0.4';
 
 
   public function onEnable() : void {
@@ -30,7 +29,7 @@ class Main extends PluginBase {
   if($this->config->get("load_all_worlds") === true){
     $this->loadAllWorlds();
   }
-    $this->addWorlds();
+    $this->createWorldUI();
     $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
@@ -56,12 +55,10 @@ class Main extends PluginBase {
    }
   }
 
-  public function addWorlds(){
-    $levels = $this->getServer()->getLevels();
-  foreach($levels as $level){
-    $this->getLogger()->info(T::YELLOW ."Level: ". T::AQUA . $level->getName() . T::YELLOW ." Has Been Added to UI List as ". $level->getId());
-    $this->worlds[$level->getId()] = $level->getName();
-   }
+  public function createWorldUI(){
+    $id = rand(1, 999);
+    $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
+    $this->ui['world-tp'] = $ui;
   }
 
   public function loadAllWorlds(){

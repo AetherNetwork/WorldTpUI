@@ -4,18 +4,18 @@
 
 > Allows Admins to teleport between worlds with a simple UI in PocketMine
 
-> Version: v0.0.3
+> Version: v0.0.4
 
 > PocketMine-MP: api-3.0.0-ALPHA9
 
 > Minecraft: v1.2.3
 
 # How to Use
-Drop the plugin in your plugins folder, start your server
+Drop the plugin in your plugins folder, restart your server
 
 > commands: /wtpui
 
-![2017-11-02 2](https://user-images.githubusercontent.com/12077835/32329111-3e166716-bf99-11e7-91be-dc45bf8c8825.png)
+![tp-ui](https://i.imgur.com/r2dqtkl.png)
 
 # License
 ```
