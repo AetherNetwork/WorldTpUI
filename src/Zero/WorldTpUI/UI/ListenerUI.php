@@ -39,7 +39,7 @@ class ListenerUI implements Listener {
     $player->sendMessage(T::RED .'You are already in that world');
   }
   } else {
-    $player->sendMessage(C::RED .'It seems that level is not loaded or does not exist');
+    $player->sendMessage(T::RED .'It seems that level is not loaded or does not exist');
   }
   } else {
     $player->sendMessage(C::RED .'Please type a world in the input area.');
