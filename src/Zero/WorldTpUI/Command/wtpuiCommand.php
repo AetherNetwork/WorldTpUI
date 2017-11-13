@@ -27,13 +27,14 @@ class wtpuiCommand extends VanillaCommand {
     $ui = $this->plugin->ui['world-tp'];
     $ui->data = ['type' => 'custom_form', 'title' => 'WorldTpUI '. $this->plugin->version, 
     'content' => [
-      ['type' => 'input', 'text' => 'Type a world name', 'placeholder' => 'World Name', 'default' => null],
+      ['type' => 'input', 'text' => 'Type a world name', 'placeholder' => 'WorldName', 'default' => null],
       ["type" => "label", "text" => "Worlds Loaded:\n". T::AQUA . $this->getLevels()]
     ]];
     $ui->send($sender);
     return true;
   } else {
     $sender->sendMessage(T::RED."You must be Op to run this Command!");
+    return false;
    }
   } else {
     $sender->sendMessage(T::RED."Command must be run in-game!");
