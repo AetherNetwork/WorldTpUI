@@ -4,11 +4,11 @@
 
 > Allows Admins to teleport between worlds with a simple UI in PocketMine
 
-> Version: v0.0.4
+> Version: v0.0.5
 
 > PocketMine-MP: api-3.0.0-ALPHA9
 
-> Minecraft: v1.2.3
+> Minecraft: v1.2.x
 
 # How to Use
 Drop the plugin in your plugins folder, restart your server
