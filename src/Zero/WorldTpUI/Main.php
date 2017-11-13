@@ -13,6 +13,7 @@ class Main extends PluginBase {
   public $id = [];
 
   public function onEnable() : void {
+  if($this->getServer()->getName() === 'PocketMine-MP'){
   if($this->isFirstLoad() === true){
     $this->getLogger()->info(T::YELLOW ."\nHello and Welcone to WorldTpUI\nEdit the config in 'plugins/WorldTpUI/config.yml'");
   } else {
@@ -26,22 +27,25 @@ class Main extends PluginBase {
     $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
+  }
+  } else {
+    $this->getLogger()->info(T::RED .'Sorry this plugin does not support spoons');
    }
   }
 
-  public function isFirstLoad(){
+  public function isFirstLoad() : bool {
   if(is_file($this->getDataFolder() ."config.yml")){
     return false;
   } else {
     @mkdir($this->getDataFolder());
     $config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-    $config->setAll(array("version" => $this->version, "load_all_worlds" => false));
+    $config->set("load_all_worlds", false);
     $config->save();
     return true;
    }
   }
 
-  public function loadAllWorlds(){
+  public function loadAllWorlds() : void {
     $worlds = $this->getServer()->getDataPath() . "worlds/";
     $allWorlds = array_slice(scandir($worlds), 2);
   foreach($allWorlds as $world){
@@ -49,7 +53,7 @@ class Main extends PluginBase {
    }
   }
 
-  public function createWorldUI(){
+  public function createWorldUI() : void {
     $id = $this->getRandId();
     $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
     $this->ui['world-tp'] = $ui;
