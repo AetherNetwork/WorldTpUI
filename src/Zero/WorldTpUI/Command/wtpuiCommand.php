@@ -1,5 +1,7 @@
 <?php 
 
+declare(strict_types=1);
+
 namespace Zero\WorldTpUI\Command;
 
 use pocketmine\Player;
@@ -25,15 +27,17 @@ class wtpuiCommand extends VanillaCommand {
   if($sender instanceof Player){
   if($sender->isOp() === true){
     $ui = $this->plugin->ui['world-tp'];
-    $ui->data = ['type' => 'custom_form', 'title' => 'WorldTpUI '. $this->plugin->version, 
+    $ui->data = ['type' => 'custom_form', 'title' => 'WorldTpUI '. $this->plugin->getDescription()->getVersion(), 
     'content' => [
-      ['type' => 'input', 'text' => 'Type a world name', 'placeholder' => 'World Name', 'default' => null],
+      ['type' => 'input', 'text' => 'Type a world name', 'placeholder' => 'WorldName', 'default' => null],
+      ['type' => 'step_slider', 'text' => 'load area around yourself', 'steps' => array("\n0, load none", "\nload 4x4 area", "\nload 8x8 area")],
       ["type" => "label", "text" => "Worlds Loaded:\n". T::AQUA . $this->getLevels()]
     ]];
     $ui->send($sender);
     return true;
   } else {
     $sender->sendMessage(T::RED."You must be Op to run this Command!");
+    return false;
    }
   } else {
     $sender->sendMessage(T::RED."Command must be run in-game!");

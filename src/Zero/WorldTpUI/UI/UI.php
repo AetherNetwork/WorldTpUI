@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zero\WorldTpUI\UI;
 
 use pocketmine\network\mcpe\protocol\ModalFormRequestPacket;

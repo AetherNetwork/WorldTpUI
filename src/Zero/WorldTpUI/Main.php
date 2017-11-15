@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Zero\WorldTpUI;
 
 use pocketmine\plugin\PluginBase;
@@ -11,20 +13,15 @@ class Main extends PluginBase {
 
   public $ui = [];
   public $id = [];
-  
-  public $version = '0.0.4';
 
   public function onEnable() : void {
-  try {
+  if($this->getServer()->getName() === 'PocketMine-MP'){
   if($this->isFirstLoad() === true){
     $this->getLogger()->info(T::YELLOW ."\nHello and Welcone to WorldTpUI\nEdit the config in 'plugins/WorldTpUI/config.yml'");
-    $this->getServer()->getPluginManager()->disablePlugin($this);
   } else {
     $this->getLogger()->info(T::YELLOW ."is Loading...");
-    $this->saveResource("config.yml");
+    $this->checkConfigVersion();
     $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-  if($this->config->get('version') === $this->version){
-    $this->getLogger()->info(T::AQUA ."Plugin Config is update-to-date.");
   if($this->config->get("load_all_worlds") === true){
     $this->loadAllWorlds();
   }
@@ -32,29 +29,26 @@ class Main extends PluginBase {
     $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
+  }
   } else {
-    $this->getLogger()->info(T::RED ."\nPlease Delete config in 'plugins/WorldTpUI/config.yml'\nthe config needs to be updated");
+    $this->getLogger()->info(T::RED .'Sorry this plugin does not support Spoons');
     $this->getServer()->getPluginManager()->disablePlugin($this);
-    }
-   }
-  } catch(Exception $e){
-    $this->getLogger()->info(T::RED ."Failed to load due to $e");
    }
   }
 
-  public function isFirstLoad(){
+  public function isFirstLoad() : bool {
   if(is_file($this->getDataFolder() ."config.yml")){
     return false;
   } else {
     @mkdir($this->getDataFolder());
     $config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
-    $config->setAll(array("version" => $this->version, "load_all_worlds" => false));
+    $config->setAll(array('version' => $this->getDescription()->getVersion(), "load_all_worlds" => false));
     $config->save();
     return true;
    }
   }
 
-  public function loadAllWorlds(){
+  public function loadAllWorlds() : void {
     $worlds = $this->getServer()->getDataPath() . "worlds/";
     $allWorlds = array_slice(scandir($worlds), 2);
   foreach($allWorlds as $world){
@@ -62,13 +56,31 @@ class Main extends PluginBase {
    }
   }
 
-  public function createWorldUI(){
+  public function createWorldUI() : void {
     $id = $this->getRandId();
     $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
     $this->ui['world-tp'] = $ui;
   }
 
-  public function getRandId(){
+  public function checkConfigVersion() : void {
+  if(isset($this->config)){
+     $this->config->getAll();
+  } else {
+    $this->config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+    $this->config->getAll();
+  }
+  if($this->getDescription()->getVersion() != $this->config->get('version')){
+    $this->getLogger()->info(T::YELLOW .'Config is not update-to-date');
+    $this->config->set('version', $this->getDescription()->getVersion());
+    $this->config->save();
+    //$this->setNewConfigItems();//soon
+    $this->getLogger()->info(T::AQUA .'Config is now update-to-date');
+  } else {
+    $this->getLogger()->info(T::AQUA .'Your Config is update-to-date');
+   }
+  }
+
+  public function getRandId() : int {
     $rand = rand(1, 1000);
   if(in_array($rand, $this->id)){
     return self::getRandId();
@@ -83,6 +95,6 @@ class Main extends PluginBase {
   if(isset($this->config)){
     $this->config->save();
   }
-	  $this->getLogger()->info(T::RED ."has Unloaded, Goodbye!");
+    $this->getLogger()->info(T::RED ."has Unloaded, Goodbye!");
   }
 }
