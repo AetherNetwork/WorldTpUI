@@ -52,7 +52,9 @@ class Main extends PluginBase {
     $worlds = $this->getServer()->getDataPath() . "worlds/";
     $allWorlds = array_slice(scandir($worlds), 2);
   foreach($allWorlds as $world){
+  if(!strpos($world, '.zip')){
     $this->getServer()->loadLevel($world);
+    }
    }
   }
 
