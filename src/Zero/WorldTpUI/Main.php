@@ -25,8 +25,6 @@ class Main extends PluginBase {
   if($this->config->get("load_all_worlds") === true){
     $this->loadAllWorlds();
   }
-    $this->createWorldUI();
-    $this->getServer()->getPluginManager()->registerEvents(new \Zero\WorldTpUI\UI\ListenerUI($this), $this);
     $this->getServer()->getCommandMap()->register('wtpui', new \Zero\WorldTpUI\Command\wtpuiCommand($this));
     $this->getLogger()->info(T::GREEN ."Everything has Loaded!");
   }
@@ -58,12 +56,6 @@ class Main extends PluginBase {
    }
   }
 
-  public function createWorldUI() : void {
-    $id = $this->getRandId();
-    $ui = new \Zero\WorldTpUI\UI\CustomUI($id);
-    $this->ui['world-tp'] = $ui;
-  }
-
   public function checkConfigVersion() : void {
   if(isset($this->config)){
      $this->config->getAll();
@@ -75,20 +67,9 @@ class Main extends PluginBase {
     $this->getLogger()->info(T::YELLOW .'Config is not update-to-date');
     $this->config->set('version', $this->getDescription()->getVersion());
     $this->config->save();
-    //$this->setNewConfigItems();//soon
     $this->getLogger()->info(T::AQUA .'Config is now update-to-date');
   } else {
     $this->getLogger()->info(T::AQUA .'Your Config is update-to-date');
-   }
-  }
-
-  public function getRandId() : int {
-    $rand = rand(1, 1000);
-  if(in_array($rand, $this->id)){
-    return self::getRandId();
-  } else {
-    $this->id[] = $rand;
-    return $rand;
    }
   }
 
