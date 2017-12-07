@@ -1,14 +1,21 @@
 ![plexus1](https://user-images.githubusercontent.com/12077835/32135004-85147afe-bbac-11e7-9f67-1c729974016e.png)
 
+
+[![Poggit-CI](https://poggit.pmmp.io/ci.badge/PlexusStudio/WorldTpUI/WorldTpUI)](https://poggit.pmmp.io/ci/PlexusStudio/WorldTpUI/WorldTpUI/)
+
+
+# Phar Download
+[download here](https://poggit.pmmp.io/ci/PlexusStudio/WorldTpUI/)
+
 # World Teleport UI
 
 > Allows Admins to teleport between worlds with a simple UI in PocketMine
 
 > Version: v0.0.6
 
-> PocketMine-MP: api-3.0.0-ALPHA9
+> PocketMine-MP: api-3.0.0-ALPHA10
 
-> Minecraft: v1.2.3
+> Minecraft: v1.2.x
 
 # How to Use
 Drop the plugin in your plugins folder, restart your server
