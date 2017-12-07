@@ -11,7 +11,7 @@
 
 > Allows Admins to teleport between worlds with a simple UI in PocketMine
 
-> Version: v0.0.4
+> Version: v0.0.5
 
 > PocketMine-MP: api-3.0.0-ALPHA10
 
