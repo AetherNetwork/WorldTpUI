@@ -1,7 +1,10 @@
 ![plexus1](https://user-images.githubusercontent.com/12077835/32135004-85147afe-bbac-11e7-9f67-1c729974016e.png)
 
+# Info 
+This branch uses the [forms branch](https://github.com/pmmp/PocketMine-MP/tree/forms-api) in pmmp, it will not work without it.
+
 # Download
-You can find the phar [here](https://github.com/PlexusStudio/WorldTpUI/releases)
+You can find the phar [here](https://raw.githubusercontent.com/PlexusStudio/WorldTpUI/0.0.6/WorldTpUI_v0.0.6.phar) 
 
 # Config
 *if you want the plugin to load all your worlds change*
@@ -17,7 +20,7 @@ load_all_worlds: true
 
 > Allows Admins to teleport between worlds with a simple UI in PocketMine
 
-> Version: v0.0.5
+> Version: v0.0.6
 
 > PocketMine-MP: api-3.0.0-ALPHA10
 
@@ -28,7 +31,8 @@ Drop the plugin in your plugins folder, restart your server
 
 > commands: /wtpui
 
-![tp-ui](https://i.imgur.com/r2dqtkl.png)
+Thanks to @thebigsmileXD for this
+![image](https://user-images.githubusercontent.com/12077835/33506012-aea1b74a-d6a2-11e7-835c-de8b808ec0cf.png)
 
 # License
 ```

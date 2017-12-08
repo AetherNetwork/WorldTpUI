@@ -1,6 +1,6 @@
 name: WorldTpUI
 main: Zero\WorldTpUI\Main
-version: 0.0.5
+version: 0.0.6
 api: 3.0.0-ALPHA10
 load: POSTWORLD
 author: ZeroDevOfficial
