@@ -4,7 +4,7 @@
 This branch uses the [forms branch](https://github.com/pmmp/PocketMine-MP/tree/forms-api) in pmmp, it will not work without it.
 
 # Download
-***0.0.6 is not listed here*** | You can find the phar [here](https://github.com/PlexusStudio/WorldTpUI/releases) 
+You can find the phar [here](https://raw.githubusercontent.com/PlexusStudio/WorldTpUI/0.0.6/WorldTpUI_v0.0.6.phar) 
 
 # Config
 *if you want the plugin to load all your worlds change*
