@@ -1,11 +1,21 @@
 ![plexus1](https://user-images.githubusercontent.com/12077835/32135004-85147afe-bbac-11e7-9f67-1c729974016e.png)
 
+# Info 
+This branch uses the [forms branch](https://github.com/pmmp/PocketMine-MP/tree/forms-api) in pmmp, it will not work without it.
 
-[![Poggit-CI](https://poggit.pmmp.io/ci.badge/PlexusStudio/WorldTpUI/WorldTpUI)](https://poggit.pmmp.io/ci/PlexusStudio/WorldTpUI/WorldTpUI/)
+# Download
+***0.0.6 is not listed here***
+You can find the phar [here](https://github.com/PlexusStudio/WorldTpUI/releases) 
 
-
-# Phar Download
-[download here](https://poggit.pmmp.io/ci/PlexusStudio/WorldTpUI/)
+# Config
+*if you want the plugin to load all your worlds change*
+```YML
+load_all_worlds: false
+```
+to
+```YML
+load_all_worlds: true
+```
 
 # World Teleport UI
 
